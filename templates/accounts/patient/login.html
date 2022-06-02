@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    {% if messages %}
+    <div class="alert alert-dismissible alert-danger mt-5">
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        {% for message in messages %}
+        <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+        {% endfor %}
+    </div
+    {% endif %}
+
+    <form action="" class="mt-5" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <input type="submit" value="Login" class="btn btn-primary btn-lg">
+    </form>
+
+    
+
+
+{% endblock content %}
