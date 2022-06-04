@@ -1,7 +1,11 @@
+from dataclasses import fields
 from django import forms 
-from django.contrib.admin.widgets import AdminDateWidget
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
 
 from .models import PatientMore, DoctorMore
+
+User = get_user_model()
 
 
 class LoginForm(forms.Form):
@@ -49,3 +53,23 @@ class DoctorMoreModelForm(forms.ModelForm):
         self.fields['nmc_number'].widget.attrs.update({'class': 'form-control'})
         self.fields['description'].widget.attrs.update({'class': 'form-control'})
         self.fields['specialization'].widget.attrs.update({'class': 'form-control'})
+
+
+class CustomRegistrationForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username', 'first_name', 'last_name', 'email', ]
+
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs.update({'class': 'form-control'})
+        self.fields['first_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['last_name'].widget.attrs.update({'class': 'form-control'})
+        self.fields['email'].widget.attrs.update({'class': 'form-control'})
+        self.fields['password1'].widget.attrs.update({'class': 'form-control'})
+
+        self.fields['password2'].widget.attrs.update({'class': 'form-control'})
+        self.fields['username'].help_text = None
+        self.fields['password1'].help_text = None
+        self.fields['password2'].help_text = None

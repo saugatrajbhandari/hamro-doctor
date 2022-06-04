@@ -8,10 +8,24 @@
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav me-auto">
           <li class="nav-item">
-            <a class="nav-link active" href="#">Home
-              <span class="visually-hidden">(current)</span>
+            <a class="nav-link {% if request.path == '/' %}active {% endif %}" href="#">Home
             </a>
           </li>
+
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/accounts/patient/profile' or '/accounts/doctor/profile' %} active  {% endif %}" href="{% if user.type == "PATIENT" %}{% url 'accounts:patient_profile' %} {% else %}
+            {% url 'accounts:doctor_profile' %} {% endif %}">Profile{% if user.type == 'PATIENT' %}({{user.username}}: Patient){% else %}({{user.username}}: Doctor){% endif %}
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link {% if request.path == '/accounts/logout' %}active {% endif %}" href="{% url 'accounts:logout' %}">Logout
+            </a>
+          </li>
+          {% endif %}
+
+          
         </ul>
         <form class="d-flex">
           <input class="form-control me-sm-2" type="text" placeholder="Search">

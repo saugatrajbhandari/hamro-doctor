@@ -1,6 +1,31 @@
 from operator import mod
+from turtle import pos
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.conf import settings
+
+User = settings.AUTH_USER_MODEL
+
+
+@receiver(post_save, sender=User)
+def create_patient_profile(sender, instance, created, **kwargs):
+    if instance.type == 'PATIENT':
+        if created:
+            PatientMore.objects.create(user=instance)
+
+        instance.patient_more.save()
+
+
+@receiver(post_save, sender=User)
+def create_doctor_profile(sender, instance, created, **kwargs):
+    if instance.type == 'DOCTOR':
+        if created:
+            DoctorMore.objects.create(user=instance)
+        
+        instance.doctor_more.save()
 
 
 class User(AbstractUser):

@@ -1,16 +1,12 @@
 from django.shortcuts import render, redirect
-from django.views.generic import FormView, TemplateView
-from django.contrib.auth import authenticate, login
+from django.views.generic import FormView, TemplateView, CreateView
+from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse_lazy, reverse
 from django.contrib import messages
 from django.conf import settings
-from django.contrib.auth.decorators import login_required, user_passes_test
+from django.contrib.auth.decorators import login_required,user_passes_test
 
-from .forms import DoctorMoreModelForm, LoginForm, PatientMoreModelForm
-
-def login_view(request):
-    form = LoginForm()
-    return render(request, 'accounts/patient/login.html', {'form': form})
+from .forms import (DoctorMoreModelForm, LoginForm, PatientMoreModelForm, CustomRegistrationForm)
 
 
 class PatientLoginView(FormView):
@@ -34,6 +30,7 @@ class PatientLoginView(FormView):
             messages.add_message(self.request, messages.INFO, 'User doesn\'t exists!')
             return redirect('accounts:patient_login')
         return super().form_valid(form)
+
 
 def check_patient_user(user):
     return user.type == 'PATIENT'
@@ -91,3 +88,35 @@ def doctor_profile_view(request):
             return redirect('accounts:doctor_profile')
     form = DoctorMoreModelForm(instance=request.user.doctor_more)
     return render(request, 'accounts/doctor/profile.html', {'form': form})
+
+
+@login_required(login_url='/')
+def logged_out(request):
+    user_type = request.user.type
+    logout(request)
+    if user_type== "PATIENT":
+        return redirect('accounts:patient_login')
+    else:
+        return redirect('accounts:doctor_login')
+
+
+class PatientRegistrationView(CreateView):
+    form_class = CustomRegistrationForm
+    template_name = 'accounts/patient/register.html'
+    success_url = reverse_lazy('accounts:patient_login')
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.type = 'PATIENT'
+        return super().form_valid(form)
+
+
+class DoctorRegistrationView(CreateView):
+    form_class = CustomRegistrationForm
+    template_name = 'accounts/doctor/register.html'
+    success_url = reverse_lazy('accounts:doctor_login')
+
+    def form_valid(self, form):
+        user = form.save(commit=False)
+        user.type = 'DOCTOR'
+        return super().form_valid(form)
