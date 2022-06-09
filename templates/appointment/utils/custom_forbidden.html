@@ -1,0 +1,14 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="d-flex justify-content-center flex-column text-center align-center mt-5">
+  <div>
+    <h1>You do not have the permission to perform this action</h1>
+  </div>
+  <div class="mt-4">
+    <a href="{% url 'homepage:home' %}" class="btn btn-lg btn-primary"
+      >Go Home</a
+    >
+  </div>
+</div>
+
+{% endblock content %}

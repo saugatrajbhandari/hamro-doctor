@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <table class="table mt-5">
+        <thead class="bg-primary text-white">
+          <tr>
+            <th scope="col">Patient Name</th>
+            <th scope="col">Date</th>
+            <th scope="col">Time</th>
+            <th scope="col">Confirmed</th>
+            <th scope="col">Update</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for appointment in appointments %}
+          <tr>
+            <td>{% if appointment.patient.get_full_name %}{{appointment.patient.get_full_name}}{% else %}{{appointment.patient.username}}{% endif %}</td>
+            <td>{{appointment.appt_date}}</td>
+            <td>{{appointment.timing}}</td>
+            <td>{% if appointment.status == 'PENDING' %}<i class="fa fa-times"></i>{% else %}<i class="fa fa-check"></i> {% endif %} </td>
+            <td><a href="{% url 'appointment:doctor_appointment_update' appointment.id %}" class=''>update</a></td>
+          </tr>
+
+        {% endfor %}
+        </tbody>
+      </table>
+    
+
+{% endblock content %}
+
+

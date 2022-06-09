@@ -7,6 +7,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 
+
 User = settings.AUTH_USER_MODEL
 
 
@@ -77,6 +78,7 @@ class PatientMore(models.Model):
 
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='patient_more')
+
     image = models.ImageField('Profile image', upload_to='patient_profile', default='default_user.png', null=True, blank=True)
     address = models.CharField('Address', max_length=255, blank=True, null=True)
     dob = models.DateField('Date of birth', null=True, blank=True)

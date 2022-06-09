@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<form action="" method="post" class="mt-5">
+    {% csrf_token %}
+    <div class="d-flex justify-content-center align-center">
+        <div >
+            <a href="{% url 'appointment:patient_appointment' %}" class="btn btn-lg btn-primary">Go to Appointment</a>
+        </div>
+        <div class="mx-3">
+            <input type="submit" value="Confirm" class="btn btn-lg btn-danger">    
+        </div>
+    </div>
+</form>
+
+
+{% endblock content %}
+
+

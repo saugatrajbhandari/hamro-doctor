@@ -120,3 +120,7 @@ class DoctorRegistrationView(CreateView):
         user = form.save(commit=False)
         user.type = 'DOCTOR'
         return super().form_valid(form)
+
+
+class LoginPageView(TemplateView):
+    template_name = 'accounts/loginpage.html'

@@ -28,9 +28,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'accounts.apps.AccountsConfig',
-    'hospital',
+    'hospital.apps.HospitalConfig',
+    'appointment.apps.AppointmentConfig',
+    'homepage.apps.HomepageConfig',
 
-    'django_extensions'
+
+    'django_extensions',
+    'fontawesomefree',
 ]
 
 

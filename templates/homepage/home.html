@@ -1,0 +1,52 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block title %}Home{% endblock title %} 
+{% block content %}
+
+<header class="banner my-4"></header>
+
+<div class="doctors my-5">
+  <div class="first-doctors-row d-flex justify-content-between">
+    <div class="left-doctors-row ms-4">
+      <h2 class="fw-bold">Consult with doctors</h2>
+      <p>Talk to a doctor regarding your health issue.</p>
+    </div>
+    <div class="right-doctors-row me-5">
+      <a class="btn btn-primary rounded-pill px-3" href="{% url 'homepage:doctors' %}">View all</a>
+    </div>
+  </div>
+
+  <div class="doctor-list mt-5">
+    <div class="row doctor-sub-list">
+      {% for doctor in doctors %}
+        
+      <div class="col-md-6 my-3">
+        <div class="doctor border py-3">
+          <div
+            class="doctor-row d-flex justify-content-around align-items-center"
+          >
+            <div class="doctor-img">
+              <img src="{{doctor.doctor_more.image.url}}" alt="{{doctor.username}}" />
+            </div>
+            <div class="doctor-info">
+              <h4 class="fw-bold text-primary">Dr. {{doctor.get_full_name|title}}</h4>
+              {% if doctor.doctor_more.short_bio %}
+              <p>{{doctor.doctor_more.short_bio}}</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="text-center mt-3">
+            <a href="{% url 'appointment:book_appointment' doctor.id %}" class="btn btn-outline-primary">Consult Online</a>
+            </div>
+        </div>
+      </div>
+      
+      {% endfor %}
+
+
+      
+    </div>
+  </div>
+</div>
+
+{% endblock content %}
