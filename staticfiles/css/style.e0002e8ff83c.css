@@ -1,0 +1,15 @@
+html{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.banner{
+    height: 80vh;
+    background: grey;
+}
+
+.doctor-sub-list{
+    display: grid;
+    grid-template-columns: 3;
+}
