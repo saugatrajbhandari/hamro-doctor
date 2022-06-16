@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+
+
+    <div class="doctors my-5">
+        
+      
+        <div class="doctor-list mt-5">
+          <div class="row doctor-sub-list">
+            {% for doctor in doctors %}
+              
+            <div class="col-md-6 my-3">
+              <div class="doctor border py-3">
+                <div
+                  class="doctor-row d-flex justify-content-around align-items-center"
+                >
+                  <div class="doctor-img">
+                    <img src="{{doctor.doctor_more.image.url}}" alt="{{doctor.username}}" />
+                  </div>
+                  <div class="doctor-info">
+                    <h4 class="fw-bold text-primary">Dr. {{doctor.get_full_name|title}}</h4>
+                    {% if doctor.doctor_more.short_bio %}
+                    <p>{{doctor.doctor_more.short_bio}}</p>
+                    {% endif %}
+                  </div>
+                </div>
+                <div class="text-center mt-3 d-flex justify-content-around">
+                  <div>
+                  <a href="" class="btn btn-outline-primary">Consult Online</a>
+                  </div>
+                  <div>
+                  <a href="{% url 'appointment:book_appointment' doctor.id %}" class="btn btn-outline-success">Book Appointment</a>
+                  </div>
+                  </div>
+              </div>
+            </div>
+            
+            {% endfor %}
+      
+      
+            
+          </div>
+        </div>
+      </div>
+    
+    
+    <div>
+        <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
+        </li>
+        {% endif %}
+        {% for p in page_obj.paginator.page_range %}
+        <li class="page-item {% if p == page_obj.number %} active {% endif %}">
+            <a class="page-link" href="?page={{p}}">{{p}}</a>
+        </li>
+        {% endfor %}
+          
+          
+          {% if page_obj.has_next %}
+          <li class="page-item">
+                <a href="?page={{ page_obj.next_page_number  }}" class="page-link">&raquo;</a>
+            </li>
+        {% endif %}
+        </ul>
+      </div>
+
+</div>
+
+
+{% endblock content %}

@@ -9,7 +9,29 @@ html{
     background-size: cover;
     min-height: 85vh;
     width: 90%;
-    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    row-gap: 3rem;
+}
+
+.banner input[type="text"]{
+    width: 450px;
+    border-radius: 10px;
+    outline: 0;
+    border: 0;
+    padding:15px 5px;
+}
+
+.banner input[type="submit"]{
+    width: 100px;
+    border-radius: 10px;
+    border: 0;
+    outline: 0;
+    padding:15px 5px;
+    margin-right: 20px;
+    background: #43ac6a;
+    color: #ffffff;    
 }
 
 .doctor-sub-list{
