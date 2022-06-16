@@ -5,8 +5,11 @@ html{
 }
 
 .banner{
-    height: 80vh;
-    background: grey;
+    background: linear-gradient(301deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, .5)),url('../images/banner.png');
+    background-size: cover;
+    min-height: 85vh;
+    width: 90%;
+    
 }
 
 .doctor-sub-list{
