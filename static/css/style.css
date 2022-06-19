@@ -38,3 +38,8 @@ html{
     display: grid;
     grid-template-columns: 3;
 }
+
+.hospital-sub-list{
+    display: grid;
+    grid-template-columns: 3;
+}

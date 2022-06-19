@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}Hospital{% endblock title %}
+
+{% block content %}
+
+<div class="container text-center my-5">
+    <div>
+    <img src="{{hospital.image.url}}" width="600" alt="">
+    {% if hospital.overview %}
+        <h1 class="my-4">Overview</h1>
+        <hr>
+        {{hospital.overview}}
+    {% endif %}
+
+    {% if hospital.services %}
+        <h1 class="my-4">Services</h1>
+        <hr>
+        {{hospital.services}}
+    {% endif %}
+
+    {% if hospital.doctors.count > 0 %}
+        <h1 class="my-4">Doctors</h1>
+        <hr>
+        {% for doctor in hospital.doctors.all %}
+        <div class="doctor border py-3 my-5">
+            <div
+              class="doctor-row d-flex justify-content-around align-items-center"
+            >
+              <div class="doctor-img">
+                <img src="{{doctor.image.url}}" alt="{{doctor.user.username}}" />
+              </div>
+              <div class="doctor-info">
+                <h4 class="fw-bold text-primary">Dr. {{doctor.user.get_full_name|title}}</h4>
+                {% if doctor.short_bio %}
+                <p>{{doctor.short_bio}}</p>
+                {% endif %}
+              </div>
+            </div>
+            <div class="text-center mt-3">
+              <a href="{% url 'appointment:book_appointment' doctor.id %}" class="btn btn-outline-success">Book Appointment</a>
+              </div>
+          </div>
+        {% endfor %}
+    {% endif %}
+    
+    </div>
+
+</div>
+
+{% endblock content %}

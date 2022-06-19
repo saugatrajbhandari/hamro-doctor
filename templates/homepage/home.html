@@ -47,7 +47,7 @@
             </div>
           </div>
           <div class="text-center mt-3">
-            <a href="{% url 'appointment:book_appointment' doctor.id %}" class="btn btn-outline-primary">Consult Online</a>
+            <a href="{% url 'appointment:book_appointment' doctor.id %}" class="btn btn-outline-success">Book Appointment</a>
             </div>
         </div>
       </div>
@@ -58,6 +58,33 @@
       
     </div>
   </div>
+
+  <div class="hospital-list mt-5">
+    <h2 class="fw-bold mb-3">Hospitals</h2>
+    <hr>
+    <div class="row hospital-sub-list tex-center">
+      {% for hospital in hospitals %}
+        
+      <div class="col-md-6 hospital my-3 text-center">
+        <div class="card my-4" style="width: 18rem; margin: 0 auto;">
+          {% if hospital.image %}
+          <img class="card-img-top" src="{{hospital.image.url}}" alt="Card image cap">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title"><strong>{{hospital.name|title}}</strong></h5>
+            <p class="card-text"><i class="fa-solid fa-location-dot"></i> {{hospital.location|title}}, {{hospital.city|title}}</p>
+            <a href="{% url 'hospital:hospital_detail' hospital.pk %}" class="btn btn-primary">View details</a>
+          </div>
+        </div>
+      </div>
+      
+      {% endfor %}
+
+
+      
+    </div>
+  </div>
+
 </div>
 </div>
 

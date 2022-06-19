@@ -16,6 +16,10 @@
             <a href="{% url 'homepage:doctors' %}" class="nav-link">Doctors</a>
           </li>
 
+          <li class="nav-item">
+            <a href="{% url 'hospital:hospital_list' %}" class="nav-link">Hospitals</a>
+          </li>
+
           {% if not request.user.is_authenticated %}
           
             <li class="nav-item">

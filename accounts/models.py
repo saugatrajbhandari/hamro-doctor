@@ -7,6 +7,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 
+from hospital.models import Hospital
+
 
 User = settings.AUTH_USER_MODEL
 
@@ -105,11 +107,15 @@ class DoctorMore(models.Model):
     description = models.TextField('Description', null=True, blank=True)
     # available_locations
     specialization = models.TextField('Specialization', null=True, blank=True)
+    hospital = models.ForeignKey(Hospital, on_delete=models.SET_NULL, null=True, related_name='doctors')
     # exprience
     # education
     # awards
     # research journals
     # membership
+
+    def __str__(self):
+        return self.user.username
 
 
 class Doctor(User):

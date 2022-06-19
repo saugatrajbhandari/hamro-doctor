@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}Hospital{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+
+<div class="hospital my-5">
+    <div class="first-hospital-row d-flex justify-content-between">
+      <div class="left-hospital-row ms-4">
+        <h2 class="fw-bold">Hospitals</h2>
+        <hr>
+      </div>
+    </div>
+  
+    <div class="hospital-list mt-5">
+      <div class="row hospital-sub-list">
+        {% for hospital in hospitals %}
+        <div class="col-md-4 hospital my-3 text-center">
+            <div class="card my-4" style="width: 18rem; margin: 0 auto;">
+              {% if hospital.image %}
+              <img class="card-img-top" src="{{hospital.image.url}}" alt="Card image cap">
+              {% endif %}
+              <div class="card-body">
+                <h5 class="card-title"><strong>{{hospital.name|title}}</strong></h5>
+                <p class="card-text"><i class="fa-solid fa-location-dot"></i> {{hospital.location|title}}, {{hospital.city|title}}</p>
+                <a href="{% url 'hospital:hospital_detail' hospital.pk %}" class="btn btn-primary">View details</a>
+              </div>
+            </div>
+          </div>
+        
+        
+        {% endfor %}
+  
+  
+        
+      </div>
+    </div>
+  </div>
+
+
+<div>
+    <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
+    </li>
+    {% endif %}
+    {% for p in page_obj.paginator.page_range %}
+    <li class="page-item {% if p == page_obj.number %} active {% endif %}">
+        <a class="page-link" href="?page={{p}}">{{p}}</a>
+    </li>
+    {% endfor %}
+      
+      
+      {% if page_obj.has_next %}
+      <li class="page-item">
+            <a href="?page={{ page_obj.next_page_number  }}" class="page-link">&raquo;</a>
+        </li>
+    {% endif %}
+    </ul>
+  </div>
+</div>
+  
+  
+
+{% endblock content %}
