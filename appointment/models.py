@@ -1,4 +1,3 @@
-from pydoc import Doc
 from django.db import models
 from django.conf import settings
 from accounts.models import Doctor, Patient
